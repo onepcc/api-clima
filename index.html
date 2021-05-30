@@ -93,8 +93,8 @@
         $("button").on("click", function (e) {
             e.preventDefault();
             let ciudad = $('#city').val();
-            console.log(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`)
-            $.get(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`, function (resp) {
+            console.log(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`)
+            $.get(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`, function (resp) {
                 console.log(resp);
 
                 // Obtenemos la respuesta y la pasamos como texto y argumento para direccion de imagenes
