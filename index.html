@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiempo APP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        /* mis estilos */
+    </style>
+
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <form class="row  justify-content-center mt-4">
+                    <div class="col-2">
+                        <label for="texto" class="visually-hidden">1234</label>
+                        <input type="text" readonly class="form-control-plaintext" id="texto" value="Ciudad:">
+                    </div>
+                    <div class="col-auto">
+                        <label for="city" class="visually-hidden">5678</label></label>
+                        <input type="text" class="form-control" id="city" placeholder="Introduzca la Ciudad">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Showtime</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        </hr>
+        <div class="row justify-content-center">
+            <div class="col-sm-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center fw-bold ciudad">Ciudad: <spam></spam> <img class="img1" src=""> </h5>
+                        <h5 class="card-title text-center ciudad2">
+                            <spam></spam><img class="img2" src="">
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item temp"><h5 class="d-inline-block">Temperatura: </h5> <spam></spam>
+                            </li>
+                            <li class="list-group-item  clima-main"><h5 class="d-inline-block">Clima: <img class="img3" src=""></h5> <spam></spam>
+                            </li>
+                            <li class="list-group-item coordenadas"><h5 class="d-inline-block">Coordenadas: </h5> <spam> </spam>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        </hr>
+    </div>
+
+
+    <!-- DESDE ACA SOLO SCRIPT -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+
+
+        // toastr.info("PRUEBA");
+        //*************************************************************
+        let urlapi = "https//:api.openweathermap.org/data/2.5/weather?q="
+        // "{city name}&appid={API key}"
+
+        let apikey = "256655b67124b3f12af5a85c29918819"
+
+
+        $("button").on("click", function (e) {
+            e.preventDefault();
+            let ciudad = $('#city').val();
+            console.log(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`)
+            $.get(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&units=metric&appid=${apikey}`, function (resp) {
+                console.log(resp);
+
+                // Obtenemos la respuesta y la pasamos como texto y argumento para direccion de imagenes
+                $('.ciudad spam').text(`${resp.name}, ${resp.sys.country}`);
+                $('.ciudad .img1').attr("src", `https://www.countryflags.io/${resp.sys.country}/flat/64.png`);
+                $('.clima-main .img3').attr("src", `https://openweathermap.org/img/wn/${resp.weather[0].icon}@2x.png`);
+                $('.ciudad2 .img2').attr("src", `http://wttr.in/${resp.name}_0qp_transparency=200_lang=es.png`);
+
+                console.log(resp.weather[0].icon);
+                console.log(resp.name);
+                $('.temp spam').text(resp.main.temp);
+                $('.clima-main spam').text(resp.weather[0].description);
+                console.log(resp.main.temp);
+                $('.coordenadas spam').text(`${resp.coord.lon}, ${resp.coord.lat}`);
+                console.log(`${resp.coord.lon}, ${resp.coord.lat}`);
+
+            }, "json");
+
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
